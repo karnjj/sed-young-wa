@@ -1,0 +1,11 @@
+beautifulsoup4
+pandas
+fastapi
+dateparser
+uvicorn
+scikit-learn
+mlflow
+boto3
+cachetools
+python-dotenv
+

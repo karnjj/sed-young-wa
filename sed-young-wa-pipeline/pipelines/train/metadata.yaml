@@ -1,0 +1,173 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: pink
+  configuration: {}
+  downstream_blocks:
+  - scrape_traffy
+  - scrape_weather
+  - scrape_holiday
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: init
+  status: executed
+  type: custom
+  upstream_blocks: []
+  uuid: init
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - transform_traffy
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: scrape_traffy
+  status: executed
+  type: data_loader
+  upstream_blocks:
+  - init
+  uuid: scrape_traffy
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - clean_traffy
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_traffy
+  status: updated
+  type: transformer
+  upstream_blocks:
+  - scrape_traffy
+  uuid: transform_traffy
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - traffy_feature
+  - integrate_data
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: clean_traffy
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - transform_traffy
+  uuid: clean_traffy
+- all_upstream_blocks_executed: false
+  color: grey
+  configuration: {}
+  downstream_blocks:
+  - integrate_data
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: traffy_feature
+  status: executed
+  type: custom
+  upstream_blocks:
+  - clean_traffy
+  uuid: traffy_feature
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - transform_weather
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: scrape_weather
+  status: executed
+  type: data_loader
+  upstream_blocks:
+  - init
+  uuid: scrape_weather
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - integrate_data
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_weather
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - scrape_weather
+  uuid: transform_weather
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - integrate_data
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: scrape_holiday
+  status: executed
+  type: data_loader
+  upstream_blocks:
+  - init
+  uuid: scrape_holiday
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - train_model
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: integrate_data
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - transform_weather
+  - clean_traffy
+  - scrape_holiday
+  - traffy_feature
+  uuid: integrate_data
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: train_model
+  status: executed
+  type: data_exporter
+  upstream_blocks:
+  - integrate_data
+  uuid: train_model
+callbacks: []
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: train
+type: python
+updated_at: '2023-05-19 12:24:48'
+uuid: train
+variables:
+  CONFIG_DIR: ./pipeline_data/pipeline_config
+  DATA_DIR: ./pipeline_data/source
+  DAY_OF_HIST_WEATHER: 40
+  TIME_OFFSET: 4
+  YEAR_IN_THAI: 2566
+widgets: []
